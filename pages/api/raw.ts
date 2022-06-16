@@ -80,7 +80,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.writeHead(200, headers)
         stream.pipe(res)
       } else {
-        res.redirect(data['@microsoft.graph.downloadUrl'])
+        let downloadUrl = data['@microsoft.graph.downloadUrl'];
+        downloadUrl = downloadUrl.replace("montaro2017-my.sharepoint.com","od.montaro2017.workers.dev")
+        res.redirect(downloadUrl)
       }
     } else {
       res.status(404).json({ error: 'No download url found.' })
